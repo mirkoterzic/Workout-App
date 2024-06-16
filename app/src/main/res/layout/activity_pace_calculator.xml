@@ -1,19 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaceCalculatorActivity">
+    tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/tv_pace_calculator"
+    <EditText
+        android:id="@+id/distanceInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pace Calculator"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:hint="Distance (km)"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:id="@+id/timeInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Time (min)"
+        android:inputType="numberDecimal"
+        android:layout_below="@id/distanceInput"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/calculateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate Pace"
+        android:layout_below="@id/timeInput"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pace: "
+        android:textSize="18sp"
+        android:layout_below="@id/calculateButton"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TableLayout
+        android:id="@+id/resultTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/resultTextView"
+        android:layout_marginTop="20dp"
+        android:padding="16dp"
+        android:stretchColumns="1">
+
+        <TableRow>
+            <TextView android:text="Distance" android:textStyle="bold" />
+            <TextView android:text="Estimated Time" android:textStyle="bold" />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="5 km" />
+            <TextView android:id="@+id/time5k" />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="10 km" />
+            <TextView android:id="@+id/time10k" />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="Half Marathon" />
+            <TextView android:id="@+id/timeHalfMarathon" />
+        </TableRow>
+        <TableRow>
+            <TextView android:text="Marathon" />
+            <TextView android:id="@+id/timeMarathon" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>
