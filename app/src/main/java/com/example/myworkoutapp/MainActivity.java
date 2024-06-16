@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent PaceCalculatorIntent = new Intent(MainActivity.this, PaceCalculatorActivity.class);
                 startActivity(PaceCalculatorIntent);
-                finish();
+
             }
         });
         workout_tracker_btn.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent WorkoutTrackerIntent= new Intent(MainActivity.this,WorkoutTrackerActivity.class);
                 startActivity(WorkoutTrackerIntent);
-                finish();
+
             }
         });
     }
