@@ -1,4 +1,5 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,71 +7,169 @@
 
     <EditText
         android:id="@+id/distanceInput"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:hint="Distance (km)"
         android:inputType="numberDecimal"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <EditText
-        android:id="@+id/timeInput"
+        android:id="@+id/hourInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Time (min)"
-        android:inputType="numberDecimal"
-        android:layout_below="@id/distanceInput"
         android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginEnd="16dp"
+        android:hint="00"
+        android:focusable="false"
+        android:clickable="true"
+        android:inputType="number"
+        android:onClick="showHourPicker"
+        app:layout_constraintEnd_toStartOf="@+id/minuteInput"
+        app:layout_constraintTop_toBottomOf="@+id/distanceInput" />
+
+    <EditText
+        android:id="@+id/minuteInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:focusable="false"
+        android:clickable="true"
+        android:layout_toEndOf="@+id/hourInput"
+        android:hint="00"
+        android:inputType="number"
+        android:onClick="showMinutePicker"
+        app:layout_constraintEnd_toStartOf="@+id/secondInput"
+        app:layout_constraintTop_toBottomOf="@+id/distanceInput" />
+
+    <EditText
+        android:id="@+id/secondInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="140dp"
+        android:layout_toEndOf="@+id/minuteInput"
+        android:hint="00"
+        android:focusable="false"
+        android:clickable="true"
+        android:inputType="number"
+        android:onClick="showSecondPicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distanceInput" />
+
+    <EditText
+        android:id="@+id/paceInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Pace (min)"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minuteInput" />
 
     <Button
         android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calculate Pace"
-        android:layout_below="@id/timeInput"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:id="@+id/resultTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pace: "
-        android:textSize="18sp"
-        android:layout_below="@id/calculateButton"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginTop="24dp"
+        android:text="Calculate missing param"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paceInput" />
 
     <TableLayout
         android:id="@+id/resultTable"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/resultTextView"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="140dp"
         android:padding="16dp"
-        android:stretchColumns="1">
+        android:stretchColumns="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calculateButton">
 
         <TableRow>
-            <TextView android:text="Distance" android:textStyle="bold" />
-            <TextView android:text="Estimated Time" android:textStyle="bold" />
+
+            <TextView
+                android:padding="7dp"
+                android:text="Distance"
+                android:textStyle="bold" />
+
+            <TextView
+                android:padding="7dp"
+                android:text="Estimated Time"
+                android:textStyle="bold" />
         </TableRow>
+
         <TableRow>
-            <TextView android:text="5 km" />
-            <TextView android:id="@+id/time5k" />
+
+            <TextView
+                android:padding="7dp"
+                android:text="5 km" />
+
+            <TextView
+                android:id="@+id/time5k"
+                android:padding="7dp" />
         </TableRow>
+
         <TableRow>
-            <TextView android:text="10 km" />
-            <TextView android:id="@+id/time10k" />
+
+            <TextView
+                android:padding="7dp"
+                android:text="10 km" />
+
+            <TextView
+                android:id="@+id/time10k"
+                android:padding="7dp" />
         </TableRow>
+
         <TableRow>
-            <TextView android:text="Half Marathon" />
-            <TextView android:id="@+id/timeHalfMarathon" />
+
+            <TextView
+                android:padding="7dp"
+                android:text="Half Marathon" />
+
+            <TextView
+                android:id="@+id/timeHalfMarathon"
+                android:padding="7dp" />
         </TableRow>
+
         <TableRow>
-            <TextView android:text="Marathon" />
-            <TextView android:id="@+id/timeMarathon" />
+
+            <TextView
+                android:padding="7dp"
+                android:text="Marathon" />
+
+            <TextView
+                android:id="@+id/timeMarathon"
+                android:padding="7dp" />
         </TableRow>
     </TableLayout>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/Time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Time"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/hourInput"
+        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distanceInput" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
