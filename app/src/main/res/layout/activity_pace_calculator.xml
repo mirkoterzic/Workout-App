@@ -5,89 +5,82 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/distanceInput"
-        android:layout_width="0dp"
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:hint="Distance (km)"
-        android:inputType="numberDecimal"
+        android:orientation="horizontal"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
 
-    <EditText
-        android:id="@+id/hourInput"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/Distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Distance"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/distanceInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="00" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPace"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:hint="00"
-        android:focusable="false"
-        android:clickable="true"
-        android:inputType="number"
-        android:onClick="showHourPicker"
-        app:layout_constraintEnd_toStartOf="@+id/minuteInput"
-        app:layout_constraintTop_toBottomOf="@+id/distanceInput" />
-
-    <EditText
-        android:id="@+id/minuteInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:focusable="false"
-        android:clickable="true"
-        android:layout_toEndOf="@+id/hourInput"
-        android:hint="00"
-        android:inputType="number"
-        android:onClick="showMinutePicker"
-        app:layout_constraintEnd_toStartOf="@+id/secondInput"
-        app:layout_constraintTop_toBottomOf="@+id/distanceInput" />
-
-    <EditText
-        android:id="@+id/secondInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="140dp"
-        android:layout_toEndOf="@+id/minuteInput"
-        android:hint="00"
-        android:focusable="false"
-        android:clickable="true"
-        android:inputType="number"
-        android:onClick="showSecondPicker"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/distanceInput" />
-
-    <EditText
-        android:id="@+id/paceInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:hint="Pace (min)"
-        android:inputType="numberDecimal"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/calculateButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minuteInput" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutTime"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/Pace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="46dp"
+            android:text="Pace"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/minuteInputPace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:hint="00"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/secondInputPace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:hint="00"
+            android:inputType="number" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginBottom="36dp"
         android:text="Calculate missing param"
+        app:layout_constraintBottom_toTopOf="@+id/resultTable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/paceInput" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TableLayout
         android:id="@+id/resultTable"
@@ -99,8 +92,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calculateButton">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TableRow>
 
@@ -160,16 +152,57 @@
         </TableRow>
     </TableLayout>
 
-    <TextView
-        android:id="@+id/Time"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayoutTime"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Time"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/hourInput"
-        app:layout_constraintHorizontal_bias="0.163"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/distanceInput" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/Time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="46dp"
+            android:text="Time"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/hourInputTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="00"
+            android:inputType="number"
+            android:onClick="showHourPicker" />
+
+        <EditText
+            android:id="@+id/minuteInputTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="00"
+            android:inputType="number"
+            android:onClick="showMinutePicker" />
+
+        <EditText
+            android:id="@+id/secondInputTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="00"
+            android:inputType="number"
+            android:onClick="showSecondPicker" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
