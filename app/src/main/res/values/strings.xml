@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">My Workout App</string>
+    <string name="distance_label">Distance</string>
+    <string name="time_label">Time</string>
+    <string name="pace_label">Pace</string>
+    <string name="hint_text">00</string>
+    <string name="calculate_button_text">Calculate missing param</string>
+    <string name="distance_column">Distance</string>
+    <string name="estimated_time_column">Estimated Time</string>
+    <string name="distance_5k">5 km</string>
+    <string name="distance_10k">10 km</string>
+    <string name="half_marathon">Half Marathon</string>
+    <string name="marathon">Marathon</string>
 </resources>

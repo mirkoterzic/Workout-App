@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -16,20 +15,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <TextView
             android:id="@+id/Distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="Distance"
+            android:text="@string/distance_label"
             android:textSize="18sp" />
 
         <EditText
             android:id="@+id/distanceInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="00" />
+            android:hint="@string/hint_text"
+            android:clickable="true"
+            android:focusable="false"
+            android:inputType="number"/>
     </LinearLayout>
 
     <LinearLayout
@@ -50,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="46dp"
-            android:text="Pace"
+            android:text="@string/pace_label"
             android:textSize="18sp" />
 
         <EditText
@@ -58,15 +59,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:hint="00"
-            android:inputType="number" />
+            android:hint="@string/hint_text"
+            android:inputType="number"
+            android:clickable="true"
+            android:focusable="false"
+            />
 
         <EditText
             android:id="@+id/secondInputPace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:hint="00"
+            android:hint="@string/hint_text"
+            android:clickable="true"
+            android:focusable="false"
             android:inputType="number" />
 
     </LinearLayout>
@@ -76,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="36dp"
-        android:text="Calculate missing param"
+        android:text="@string/calculate_button_text"
         app:layout_constraintBottom_toTopOf="@+id/resultTable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -95,23 +101,21 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TableRow>
-
             <TextView
                 android:padding="7dp"
-                android:text="Distance"
+                android:text="@string/distance_column"
                 android:textStyle="bold" />
 
             <TextView
                 android:padding="7dp"
-                android:text="Estimated Time"
+                android:text="@string/estimated_time_column"
                 android:textStyle="bold" />
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:padding="7dp"
-                android:text="5 km" />
+                android:text="@string/distance_5k" />
 
             <TextView
                 android:id="@+id/time5k"
@@ -119,10 +123,9 @@
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:padding="7dp"
-                android:text="10 km" />
+                android:text="@string/distance_10k" />
 
             <TextView
                 android:id="@+id/time10k"
@@ -130,10 +133,9 @@
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:padding="7dp"
-                android:text="Half Marathon" />
+                android:text="@string/half_marathon" />
 
             <TextView
                 android:id="@+id/timeHalfMarathon"
@@ -141,10 +143,9 @@
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:padding="7dp"
-                android:text="Marathon" />
+                android:text="@string/marathon" />
 
             <TextView
                 android:id="@+id/timeMarathon"
@@ -167,7 +168,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="46dp"
-            android:text="Time"
+            android:text="@string/time_label"
             android:textSize="18sp" />
 
         <EditText
@@ -177,8 +178,8 @@
             android:layout_marginEnd="8dp"
             android:clickable="true"
             android:focusable="false"
-            android:hint="00"
             android:inputType="number"
+            android:hint="@string/hint_text"
             android:onClick="showHourPicker" />
 
         <EditText
@@ -188,7 +189,7 @@
             android:layout_marginEnd="8dp"
             android:clickable="true"
             android:focusable="false"
-            android:hint="00"
+            android:hint="@string/hint_text"
             android:inputType="number"
             android:onClick="showMinutePicker" />
 
@@ -199,10 +200,9 @@
             android:layout_marginEnd="8dp"
             android:clickable="true"
             android:focusable="false"
-            android:hint="00"
+            android:hint="@string/hint_text"
             android:inputType="number"
             android:onClick="showSecondPicker" />
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
