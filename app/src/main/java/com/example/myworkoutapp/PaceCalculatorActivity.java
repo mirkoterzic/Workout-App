@@ -1,13 +1,19 @@
 package com.example.myworkoutapp;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.view.MotionEvent;
+import android.graphics.Rect;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,9 +28,10 @@ public class PaceCalculatorActivity extends AppCompatActivity {
     private TextView timeHalfMarathon;
     private TextView timeMarathon;
     private Button calculateButton;
-    private EditText minuteInput;
-    private EditText hourInput;
-    private EditText secondInput;
+    private EditText minuteInputTime;
+    private EditText hourInputTime;
+    private EditText secondInputTime;
+
 
 
     @Override
@@ -33,10 +40,10 @@ public class PaceCalculatorActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_pace_calculator);
 
-
-        hourInput=findViewById(R.id.hourInputTime);
-        minuteInput=findViewById(R.id.minuteInputTime);
-        secondInput=findViewById(R.id.secondInputTime);
+        distanceInput =findViewById(R.id.distanceInput);
+        hourInputTime =findViewById(R.id.hourInputTime);
+        minuteInputTime =findViewById(R.id.minuteInputTime);
+        secondInputTime =findViewById(R.id.secondInputTime);
 
 
         time5k = findViewById(R.id.time5k);
@@ -52,6 +59,43 @@ public class PaceCalculatorActivity extends AppCompatActivity {
                 calculatePaceAndTimes();
             }
         });
+
+        distanceInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_DONE) {
+                    //hide the keyboard
+                    InputMethodManager imm= (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(),0);
+                    return true;
+                }
+                return false;
+
+            }
+
+        });
+
+
+
+
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 
     public void showHourPicker(View V){
@@ -65,7 +109,7 @@ public class PaceCalculatorActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                hourInput.setText(String.format("%02d",hourPicker.getValue()));
+                hourInputTime.setText(String.format("%02d",hourPicker.getValue()));
             }
         });
         builder.setNegativeButton("Cancel",null);
@@ -82,7 +126,7 @@ public class PaceCalculatorActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                minuteInput.setText(String.format("%02d", minutePicker.getValue()));
+                minuteInputTime.setText(String.format("%02d", minutePicker.getValue()));
             }
         });
         builder.setNegativeButton("Cancel", null);
@@ -100,7 +144,7 @@ public class PaceCalculatorActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                secondInput.setText(String.format("%02d", secondPicker.getValue()));
+                secondInputTime.setText(String.format("%02d", secondPicker.getValue()));
             }
         });
         builder.setNegativeButton("Cancel", null);

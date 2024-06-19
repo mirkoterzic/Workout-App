@@ -29,8 +29,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_text"
             android:clickable="true"
-            android:focusable="false"
-            android:inputType="number"/>
+            android:focusable="true"
+            android:inputType="number"
+            android:imeOptions="actionDone"/>
     </LinearLayout>
 
     <LinearLayout
