@@ -27,13 +27,72 @@
             android:id="@+id/distanceInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
             android:hint="@string/hint_text"
             android:clickable="true"
             android:focusable="true"
             android:inputType="number"
             android:imeOptions="actionDone"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(km)"></TextView>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayoutTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
+        <TextView
+            android:id="@+id/Time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="46dp"
+            android:text="@string/time_label"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/hourInputTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:inputType="number"
+            android:hint="@string/hint_text"
+            android:onClick="showHourPicker" />
+
+        <EditText
+            android:id="@+id/minuteInputTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/hint_text"
+            android:inputType="number"
+            android:onClick="showMinuteOrSecondPicker" />
+
+        <EditText
+            android:id="@+id/secondInputTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/hint_text"
+            android:inputType="number"
+            android:onClick="showMinuteOrSecondPicker" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(HH:MM:SS)"></TextView>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayoutPace"
         android:layout_width="match_parent"
@@ -64,17 +123,26 @@
             android:inputType="number"
             android:clickable="true"
             android:focusable="false"
+            android:onClick="showMinuteOrSecondPicker"
             />
 
         <EditText
             android:id="@+id/secondInputPace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="28dp"
             android:hint="@string/hint_text"
             android:clickable="true"
             android:focusable="false"
-            android:inputType="number" />
+            android:inputType="number"
+            android:onClick="showMinuteOrSecondPicker"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(min/km)"
+            ></TextView>
+
 
     </LinearLayout>
 
@@ -154,56 +222,6 @@
         </TableRow>
     </TableLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayoutTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-        <TextView
-            android:id="@+id/Time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="46dp"
-            android:text="@string/time_label"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/hourInputTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:clickable="true"
-            android:focusable="false"
-            android:inputType="number"
-            android:hint="@string/hint_text"
-            android:onClick="showHourPicker" />
-
-        <EditText
-            android:id="@+id/minuteInputTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:clickable="true"
-            android:focusable="false"
-            android:hint="@string/hint_text"
-            android:inputType="number"
-            android:onClick="showMinutePicker" />
-
-        <EditText
-            android:id="@+id/secondInputTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:clickable="true"
-            android:focusable="false"
-            android:hint="@string/hint_text"
-            android:inputType="number"
-            android:onClick="showSecondPicker" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

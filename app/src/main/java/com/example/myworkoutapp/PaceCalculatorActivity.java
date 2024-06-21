@@ -31,6 +31,8 @@ public class PaceCalculatorActivity extends AppCompatActivity {
     private EditText minuteInputTime;
     private EditText hourInputTime;
     private EditText secondInputTime;
+    private EditText minuteInputPace;
+    private EditText secondInputPace;
 
 
 
@@ -44,6 +46,9 @@ public class PaceCalculatorActivity extends AppCompatActivity {
         hourInputTime =findViewById(R.id.hourInputTime);
         minuteInputTime =findViewById(R.id.minuteInputTime);
         secondInputTime =findViewById(R.id.secondInputTime);
+        minuteInputPace=findViewById(R.id.minuteInputPace);
+        secondInputPace=findViewById(R.id.secondInputPace);
+
 
 
         time5k = findViewById(R.id.time5k);
@@ -115,41 +120,31 @@ public class PaceCalculatorActivity extends AppCompatActivity {
         builder.setNegativeButton("Cancel",null);
         builder.show();
     }
-    public void showMinutePicker(View v) {
-        final NumberPicker minutePicker = new NumberPicker(this);
-        minutePicker.setMinValue(0);
-        minutePicker.setMaxValue(59);
+
+    public void showMinuteOrSecondPicker(View v) {
+        if (v instanceof EditText) {
+            showNumberPicker((EditText) v);
+        }
+    }
+    public void showNumberPicker( EditText editText) {
+        final NumberPicker Picker = new NumberPicker(this);
+        Picker.setMinValue(0);
+        Picker.setMaxValue(59);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Minutes");
-        builder.setView(minutePicker);
+        builder.setTitle("Select Minutes/Seconds");
+        builder.setView(Picker);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                minuteInputTime.setText(String.format("%02d", minutePicker.getValue()));
+                editText.setText(String.format("%02d", Picker.getValue()));
             }
         });
         builder.setNegativeButton("Cancel", null);
         builder.show();
     }
 
-    public void showSecondPicker(View v) {
-        final NumberPicker secondPicker = new NumberPicker(this);
-        secondPicker.setMinValue(0);
-        secondPicker.setMaxValue(59);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Seconds");
-        builder.setView(secondPicker);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                secondInputTime.setText(String.format("%02d", secondPicker.getValue()));
-            }
-        });
-        builder.setNegativeButton("Cancel", null);
-        builder.show();
-    }
 
     private void calculatePaceAndTimes() {
 
