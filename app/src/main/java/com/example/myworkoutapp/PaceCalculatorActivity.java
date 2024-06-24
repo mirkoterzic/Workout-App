@@ -17,6 +17,8 @@ import android.graphics.Rect;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DecimalFormat;
+
 public class PaceCalculatorActivity extends AppCompatActivity {
 
 
@@ -34,7 +36,8 @@ public class PaceCalculatorActivity extends AppCompatActivity {
     private EditText minuteInputPace;
     private EditText secondInputPace;
 
-    private int distance, hour_time, minute_time, second_time, minute_pace, second_pace;
+    private double distance;
+    private int  hour_time, minute_time, second_time, minute_pace, second_pace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +82,46 @@ public class PaceCalculatorActivity extends AppCompatActivity {
             }
 
         });
+        distanceInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // Hide the keyboard
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                    // Round the entered distance
+                    roundDistance();
+                    // You can also trigger the calculation if needed
+                    calculatePaceAndTimes();
+                    return true;
+                }
+                return false;
+            }
+        });
+        distanceInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    // Round the entered distance when the EditText loses focus
+                    roundDistance();
+                }
+            }
+        });
 
 
 
 
+    }
+
+    private void roundDistance() {
+        String distanceStr = distanceInput.getText().toString();
+        if (!distanceStr.isEmpty()) {
+            double distanceValue = Double.parseDouble(distanceStr);
+            DecimalFormat df = new DecimalFormat("#.##");
+            distanceInput.setText(df.format(distanceValue));
+        }
     }
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
@@ -153,9 +192,20 @@ public class PaceCalculatorActivity extends AppCompatActivity {
             return 0; // or any other default value
         }
     }
+    private double getDoubleFromEditText(EditText editText) {
+        String text = editText.getText().toString();
+        try {
+            double value = Double.parseDouble(text);
+            return Math.round(value * 100.0) / 100.0; // round to two decimal places
+        } catch (NumberFormatException e) {
+            // Handle the case where the EditText is empty or contains non-numeric characters
+            return 0.0; // or any other default value
+        }
+    }
 
     private void calculatePaceAndTimes() {
         InitializeValues();
+
         double totalTimeInMinutes = hour_time * 60 + minute_time + second_time / 60.0;
         double totalPaceInMinutes = minute_pace + second_pace / 60.0;
 
@@ -169,16 +219,14 @@ public class PaceCalculatorActivity extends AppCompatActivity {
             updatePaceInputs(totalPaceInMinutes);
         } else if (totalPaceInMinutes != 0 && totalTimeInMinutes != 0 && distance == 0) {
             // Calculate distance
-            distance = (int) (totalTimeInMinutes / totalPaceInMinutes);
-            distanceInput.setText(String.valueOf(distance));
+            distance = totalTimeInMinutes / totalPaceInMinutes;
+            distanceInput.setText(String.format("%.2f", distance));
         }
 
         // Calculate estimated times for different distances
         calculateEstimatedTimes(totalPaceInMinutes);
-
-
-
     }
+
     private void updateTimeInputs(double totalTimeInMinutes) {
         int hours = (int) totalTimeInMinutes / 60;
         int minutes = (int) totalTimeInMinutes % 60;
@@ -197,7 +245,7 @@ public class PaceCalculatorActivity extends AppCompatActivity {
     }
 
     public void InitializeValues(){
-         distance = getIntegerFromEditText(distanceInput);
+         distance = getDoubleFromEditText(distanceInput);
          hour_time=getIntegerFromEditText(hourInputTime);
          minute_time=getIntegerFromEditText(minuteInputTime);
          second_time= getIntegerFromEditText(secondInputTime);
