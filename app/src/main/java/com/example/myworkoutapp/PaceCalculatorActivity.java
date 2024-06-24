@@ -34,7 +34,7 @@ public class PaceCalculatorActivity extends AppCompatActivity {
     private EditText minuteInputPace;
     private EditText secondInputPace;
 
-
+    private int distance, hour_time, minute_time, second_time, minute_pace, second_pace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,10 +144,65 @@ public class PaceCalculatorActivity extends AppCompatActivity {
         builder.show();
     }
 
-
+    private int getIntegerFromEditText(EditText editText) {
+        String text = editText.getText().toString();
+        try {
+            return Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            // Handle the case where the EditText is empty or contains non-numeric characters
+            return 0; // or any other default value
+        }
+    }
 
     private void calculatePaceAndTimes() {
+        InitializeValues();
+        double totalTimeInMinutes = hour_time * 60 + minute_time + second_time / 60.0;
+        double totalPaceInMinutes = minute_pace + second_pace / 60.0;
 
+        if (distance != 0 && totalPaceInMinutes != 0 && totalTimeInMinutes == 0) {
+            // Calculate time
+            totalTimeInMinutes = distance * totalPaceInMinutes;
+            updateTimeInputs(totalTimeInMinutes);
+        } else if (distance != 0 && totalTimeInMinutes != 0 && totalPaceInMinutes == 0) {
+            // Calculate pace
+            totalPaceInMinutes = totalTimeInMinutes / distance;
+            updatePaceInputs(totalPaceInMinutes);
+        } else if (totalPaceInMinutes != 0 && totalTimeInMinutes != 0 && distance == 0) {
+            // Calculate distance
+            distance = (int) (totalTimeInMinutes / totalPaceInMinutes);
+            distanceInput.setText(String.valueOf(distance));
+        }
+
+        // Calculate estimated times for different distances
+        calculateEstimatedTimes(totalPaceInMinutes);
+
+
+
+    }
+    private void updateTimeInputs(double totalTimeInMinutes) {
+        int hours = (int) totalTimeInMinutes / 60;
+        int minutes = (int) totalTimeInMinutes % 60;
+        int seconds = (int) ((totalTimeInMinutes - (hours * 60 + minutes)) * 60);
+
+        hourInputTime.setText(String.format("%02d", hours));
+        minuteInputTime.setText(String.format("%02d", minutes));
+        secondInputTime.setText(String.format("%02d", seconds));
+    }
+    private void updatePaceInputs(double totalPaceInMinutes) {
+        int minutes = (int) totalPaceInMinutes;
+        int seconds = (int) ((totalPaceInMinutes - minutes) * 60);
+
+        minuteInputPace.setText(String.format("%02d", minutes));
+        secondInputPace.setText(String.format("%02d", seconds));
+    }
+
+    public void InitializeValues(){
+         distance = getIntegerFromEditText(distanceInput);
+         hour_time=getIntegerFromEditText(hourInputTime);
+         minute_time=getIntegerFromEditText(minuteInputTime);
+         second_time= getIntegerFromEditText(secondInputTime);
+         minute_pace= getIntegerFromEditText(minuteInputPace);
+         second_pace= getIntegerFromEditText(secondInputPace);
     }
 
     private void calculateEstimatedTimes(double pace) {
