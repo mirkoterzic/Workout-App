@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -14,6 +16,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.view.MotionEvent;
 import android.graphics.Rect;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -239,6 +242,23 @@ public class PaceCalculatorActivity extends AppCompatActivity {
             // Calculate distance
             distance = totalTimeInMinutes / totalPaceInMinutes;
             distanceInput.setText(String.format("%.2f", distance));
+        }else if(totalPaceInMinutes != 0 && totalTimeInMinutes != 0 && distance != 0){
+            //if nothing is empty calculate pace
+            totalPaceInMinutes = totalTimeInMinutes / distance;
+            updatePaceInputs(totalPaceInMinutes);
+        }else {
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
+
+
+            TextView text = layout.findViewById(R.id.custom_toast_text);
+            text.setText("Invalid input!\n (must at least enter two fields)");
+
+            // Create and show the toast
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(layout);
+            toast.show();
         }
 
         // Calculate estimated times for different distances
