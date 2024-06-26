@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -183,26 +185,47 @@ public class PaceCalculatorActivity extends AppCompatActivity {
 
     public void showMinuteOrSecondPicker(View v) {
         if (v instanceof EditText) {
-            showNumberPicker((EditText) v);
+            showNumberInputDialog((EditText) v);
         }
     }
-    public void showNumberPicker( EditText editText) {
-        final NumberPicker Picker = new NumberPicker(this);
-        Picker.setMinValue(0);
-        Picker.setMaxValue(59);
-
+    public void showNumberInputDialog(final EditText editText) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Minutes/Seconds");
-        builder.setView(Picker);
+        builder.setTitle("Enter Minutes/Seconds");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setFilters(new InputFilter[]{ new InputFilterMinMax(0, 59) });
+
+        builder.setView(input);
+
+        // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                editText.setText(String.format("%02d", Picker.getValue()));
+                String inputText = input.getText().toString();
+                int value;
+                try {
+                    value = Integer.parseInt(inputText);
+                    if (value > 59) {
+                        value = 0;
+                    }
+                } catch (NumberFormatException e) {
+                    value = 0;
+                }
+                editText.setText(String.format("%02d", value));
             }
         });
-        builder.setNegativeButton("Cancel", null);
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
         builder.show();
     }
+
 
     private int getIntegerFromEditText(EditText editText) {
         String text = editText.getText().toString();
@@ -311,4 +334,6 @@ public class PaceCalculatorActivity extends AppCompatActivity {
     private void clearTime(){
         updateTimeInputs(0);
     }
+
+
 }
