@@ -14,7 +14,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.view.MotionEvent;
 import android.graphics.Rect;
@@ -165,25 +164,50 @@ public class PaceCalculatorActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(event);
     }
 
-    public void showHourPicker(View V){
-        final NumberPicker hourPicker= new NumberPicker(this);
-        hourPicker.setMinValue(0);
-        hourPicker.setMaxValue(99);
+    public void showHourPicker(View v) {
+        if (v instanceof EditText) {
+            showHourInputDialog((EditText) v);
+        }
+    }
+    public void showHourInputDialog(final EditText edittext){
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        builder.setTitle("Enter Hours");
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Hours");
-        builder.setView(hourPicker);
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setFilters(new InputFilter[]{new InputFilterMinMax(0,100)});
+
+        builder.setView(input);
+
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                hourInputTime.setText(String.format("%02d",hourPicker.getValue()));
+                String inputText=input.getText().toString();
+                int value;
+                try{
+                    value=Integer.parseInt(inputText);
+                    if(value>100){
+                        value=0;
+                    }
+                }
+                    catch(NumberFormatException e){
+                        value= 0;
+                    }
+                edittext.setText(String.format("%02d",value));
+
+
             }
         });
-        builder.setNegativeButton("Cancel",null);
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
         builder.show();
     }
 
-    public void showMinuteOrSecondPicker(View v) {
+    public void showMinuteOrSecondInputDialog(View v) {
         if (v instanceof EditText) {
             showNumberInputDialog((EditText) v);
         }
