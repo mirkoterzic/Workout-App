@@ -35,6 +35,8 @@ public class PaceCalculatorActivity extends AppCompatActivity {
     private EditText secondInputTime;
     private EditText minuteInputPace;
     private EditText secondInputPace;
+    private Button resetTimeBtn;
+    private Button resetPaceBtn;
 
     private double distance;
     private int  hour_time, minute_time, second_time, minute_pace, second_pace;
@@ -52,6 +54,10 @@ public class PaceCalculatorActivity extends AppCompatActivity {
         minuteInputPace=findViewById(R.id.minuteInputPace);
         secondInputPace=findViewById(R.id.secondInputPace);
 
+        //reset Buttons
+        resetTimeBtn=findViewById(R.id.resetTimeBtn);
+        resetPaceBtn=findViewById(R.id.resetPaceBtn);
+
 
 
         time5k = findViewById(R.id.time5k);
@@ -65,6 +71,18 @@ public class PaceCalculatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 calculatePaceAndTimes();
+            }
+        });
+        resetTimeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateTimeInputs(0);
+            }
+        });
+        resetPaceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updatePaceInputs(0);
             }
         });
 
@@ -269,5 +287,8 @@ public class PaceCalculatorActivity extends AppCompatActivity {
         int hours = (int) timeInMinutes / 60;
         int minutes = (int) timeInMinutes % 60;
         return String.format("%d hr %02d min", hours, minutes);
+    }
+    private void clearTime(){
+        updateTimeInputs(0);
     }
 }

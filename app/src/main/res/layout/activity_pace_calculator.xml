@@ -37,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="(km)"></TextView>
+
     </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayoutTime"
@@ -44,6 +45,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
@@ -92,6 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="(HH:MM:SS)"></TextView>
+
     </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayoutPace"
@@ -151,6 +154,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="36dp"
+        android:layout_marginTop="20dp"
         android:text="@string/calculate_button_text"
         app:layout_constraintBottom_toTopOf="@+id/resultTable"
         app:layout_constraintEnd_toEndOf="parent"
@@ -161,7 +165,7 @@
         android:id="@+id/resultTable"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="140dp"
+        android:layout_marginBottom="68dp"
         android:padding="16dp"
         android:stretchColumns="1"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -170,6 +174,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TableRow>
+
             <TextView
                 android:padding="7dp"
                 android:text="@string/distance_column"
@@ -182,6 +187,7 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="7dp"
                 android:text="@string/distance_5k" />
@@ -192,6 +198,7 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="7dp"
                 android:text="@string/distance_10k" />
@@ -202,6 +209,7 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="7dp"
                 android:text="@string/half_marathon" />
@@ -212,6 +220,7 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:padding="7dp"
                 android:text="@string/marathon" />
@@ -222,6 +231,25 @@
         </TableRow>
     </TableLayout>
 
+    <Button
+        android:id="@+id/resetPaceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset Pace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/resetTimeBtn"></Button>
+
+    <Button
+        android:id="@+id/resetTimeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Reset Time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutPace"></Button>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
